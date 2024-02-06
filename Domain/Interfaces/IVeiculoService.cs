@@ -11,7 +11,7 @@ namespace Domain.Interfaces
     {
         //a interface é um contrato, apenas usamos para adicionar metodos, não é feita implementaçao de nada
 
-        Task PostAsync(VeiculoCommand command);
+        Task<string> PostAsync(VeiculoCommand command);
         void PostAsync();
         void GetAsync();
     }

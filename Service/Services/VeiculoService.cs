@@ -1,4 +1,5 @@
 ﻿using Domain.Command;
+using Domain.Enums;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -6,27 +7,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Service.Services
 {
-    public class VeiculoService : IVeiculoService 
+    public class VeiculoService : IVeiculoService
     {
         public void GetAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task PostAsync(VeiculoCommand command)
+        public async Task<string> PostAsync(VeiculoCommand command)
         {
-            //todo 
+            if (command == null)
+                return "Todos os campos sao obrigatorios";
 
-            //incluir vaidação, so podem cadrastrar veilucos com ate 5 anos de uso
+            int AnoAtual = DateTime.Now.Year;
+            if (AnoAtual - command.Anofabricacao >= 5)
+                return "O ano do veiculo é menor que o permitido";
 
-            //todo  
-            // incluir somente carros do tipo USVs, sedan e hatch
+            if (command.TipoVeiculo != ETipoVeiculo.SUVs
+                && command.TipoVeiculo != ETipoVeiculo.Hatchs
+                && command.TipoVeiculo != ETipoVeiculo.Sedans
+            )
+                return "o tipo de veiculo não é permitido";
 
-            throw new NotImplementedException();
+
+            return "cadastro realizado com sucesso";
+
         }
-
         public void PostAsync()
         {
             throw new NotImplementedException();
